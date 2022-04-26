@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react'
-import { ListGroup, ListGroupItem } from 'react-bootstrap'
+import { ListGroup, ListGroupItem, Button } from 'react-bootstrap'
 import API from '../services/StarwarsAPI'
 
 const PeoplePage = () => {
@@ -21,10 +21,19 @@ const PeoplePage = () => {
             {people && (
                 <ListGroup>
                 {people.results.map((person) => (
-                    <ListGroupItem>{person.name}</ListGroupItem>
+                    <div className='d-flex m-1'>
+                    <ListGroupItem className='w-75'>{person.name}</ListGroupItem>
+                    <Button className='right' variant='secondary'>details</Button>
+                  </div>
                 ))}
                 </ListGroup>
             )}
+
+            <div className="d-flex justify-content-between align-items-center">
+                <Button variant='primary'>Previous page</Button>
+                <p>PAGE of PAGES</p>
+                <Button variant='primary'>Next page</Button>
+            </div>
 
         </div>
     )

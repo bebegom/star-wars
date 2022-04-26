@@ -1,5 +1,5 @@
-import {React, useEffect, useState} from 'react'
-import { ListGroup, ListGroupItem } from 'react-bootstrap'
+import {React, useEffect, useState, Link} from 'react'
+import { ListGroup, ListGroupItem, Button} from 'react-bootstrap'
 import API from '../services/StarwarsAPI'
 
 const FilmsPage = () => {
@@ -21,7 +21,10 @@ const FilmsPage = () => {
       {films && (
           <ListGroup>
               {films.results.map((film) => (
-                  <ListGroupItem>{film.title}</ListGroupItem>
+                  <div className='d-flex m-1'>
+                    <ListGroupItem className='w-75'>{film.title}</ListGroupItem>
+                    <Button className='right' variant='secondary'>details</Button>
+                  </div>
               ))}
           </ListGroup>
       )}
