@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from 'react'
 import { ListGroup, ListGroupItem, Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import API from '../services/StarwarsAPI'
 
 const PeoplePage = () => {
@@ -27,7 +28,9 @@ const PeoplePage = () => {
                 {people.results.map((person) => (
                     <div className='d-flex m-1'>
                     <ListGroupItem className='w-75'>{person.name}</ListGroupItem>
-                    <Button className='right' variant='secondary'>details</Button>
+                    <Link to={`/people/${API.getIdFromUrl(person.url)}`}>
+                        <Button className='right' variant='secondary'>details</Button>
+                    </Link>
                   </div>
                 ))}
                 </ListGroup>
