@@ -3,7 +3,6 @@ import { useParams, Link } from 'react-router-dom'
 import API from '../services/StarwarsAPI'
 //TODO: for looping over films the character is in
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
-// import { Link } from 'react-router-dom'
 
 const PersonPage = () => {
     const [person, setPerson] = useState('')

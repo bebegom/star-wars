@@ -5,15 +5,20 @@ import API from '../services/StarwarsAPI'
 
 const PeoplePage = () => {
     const [people, setPeople] = useState('');
+    const [page, setPage] = useState(0)
   
-    const getPeopleFromAPI = async () => {
-        const data = await API.getPeople();
+    const getPeopleFromAPI = async (page) => {
+        const data = await API.getPeople(page +1);
         setPeople(data);
     };
 
     useEffect(() => {
-        getPeopleFromAPI()
-    }, [])
+        getPeopleFromAPI(page)
+    }, [page])
+
+    // useEffect(() => {
+    //     getPeopleFromAPI(page)
+    // }, [page])
 
     return (
         <div>
@@ -37,9 +42,9 @@ const PeoplePage = () => {
             )}
 
             <div className="d-flex justify-content-between align-items-center">
-                <Button variant='primary'>Previous page</Button>
-                <p>PAGE of PAGES</p>
-                <Button variant='primary'>Next page</Button>
+                <Button disabled={page <= 0} onClick={() => setPage(prevValue => prevValue - 1)} variant='primary'>Previous page</Button>
+                <p> on page {page +1}</p>
+                <Button disabled={!people.next || page >= 8} onClick={() => setPage(prevValue => prevValue + 1)}  variant='primary'>Next page</Button>
             </div>
 
         </div>

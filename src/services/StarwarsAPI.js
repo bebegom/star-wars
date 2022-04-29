@@ -7,8 +7,8 @@ import axios from 'axios'
 axios.defaults.baseURL = 'https://swapi.dev/api'
 
 // get people from SWAPI TODO: skapa en try-catch
-const getPeople = async () => {
-    const res = await axios.get('/people')
+const getPeople = async (page) => {
+    const res = await axios.get(`/people/?page=${page}`)
     return res.data
 }
 
@@ -39,6 +39,10 @@ const getIdFromUrl = (url) => {
 	return id
 }
 
+const search = async (page) => {
+    return axios.get(`/?page=${page}`)
+}
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     getPeople,
@@ -46,4 +50,5 @@ export default {
     getFilms,
     getFilm,
     getIdFromUrl,
+    search,
 }
