@@ -18,6 +18,10 @@ const PeoplePage = () => {
         <div>
             <h1>People</h1>
 
+            {!people && (
+                <p>wait for it...</p>
+            )}
+
             {people && (
                 <ListGroup>
                 {people.results.map((person) => (
