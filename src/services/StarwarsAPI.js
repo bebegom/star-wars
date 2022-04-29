@@ -12,10 +12,20 @@ const getPeople = async () => {
     return res.data
 }
 
+const getPerson = async (id) => {
+    const res = await axios.get(`/people/${id}`)
+    return (res.data)
+}
+
 // get films from SWAPI TODO: skapa en try-catch
 const getFilms = async () => {
     const res = await axios.get('/films')
     return res.data
+}
+
+const getFilm = async (id) => {
+    const res = await axios.get(`/films/${id}`)
+    return (res.data)
 }
 
 // Extract ID from SWAPI url
@@ -32,6 +42,8 @@ const getIdFromUrl = (url) => {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     getPeople,
+    getPerson,
     getFilms,
+    getFilm,
     getIdFromUrl,
 }

@@ -1,21 +1,21 @@
 import { React, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-// import API from '../services/StarwarsAPI'
-import axios from 'axios'
+import API from '../services/StarwarsAPI'
+// import axios from 'axios'
 //TODO: for looping over characters in the film
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 // import { Link } from 'react-router-dom'
 
-axios.defaults.baseURL = 'https://swapi.dev/api'
+// axios.defaults.baseURL = 'https://swapi.dev/api'
 
 const FilmPage = () => {
     const [film, setFilm] = useState('')
 
     const { id } = useParams()
 
-    const getFilm = async (theParams) => {
-        const urlWithId = await axios.get(`/films/${theParams}`)
-        setFilm(urlWithId.data)
+    const getFilm = async (id) => {
+        const data = await API.getFilm(id)
+        setFilm(data)
     }
 
     useEffect( ()=> {
