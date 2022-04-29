@@ -2,23 +2,20 @@ import { React, useEffect, useState } from 'react'
 import { ListGroup, ListGroupItem, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import API from '../services/StarwarsAPI'
+import PaginationBar from '../components/PaginationBar'
 
 const PeoplePage = () => {
     const [people, setPeople] = useState('');
-    const [page, setPage] = useState(0)
+    const [page, setPage] = useState(1)
   
     const getPeopleFromAPI = async (page) => {
-        const data = await API.getPeople(page +1);
+        const data = await API.getPeople(page);
         setPeople(data);
     };
 
     useEffect(() => {
         getPeopleFromAPI(page)
     }, [page])
-
-    // useEffect(() => {
-    //     getPeopleFromAPI(page)
-    // }, [page])
 
     return (
         <div>
@@ -41,11 +38,7 @@ const PeoplePage = () => {
                 </ListGroup>
             )}
 
-            <div className="d-flex justify-content-between align-items-center">
-                <Button disabled={page <= 0} onClick={() => setPage(prevValue => prevValue - 1)} variant='primary'>Previous page</Button>
-                <p> on page {page +1}</p>
-                <Button disabled={!people.next || page >= 8} onClick={() => setPage(prevValue => prevValue + 1)}  variant='primary'>Next page</Button>
-            </div>
+                <PaginationBar data={people} page={page} pageChange={setPage} />
 
         </div>
     )

@@ -72,7 +72,7 @@ const PersonPage = () => {
                             Film {API.getIdFromUrl(film)}
                         </ListGroupItem>
                         ))}
-                    </ListGroup>   
+                    </ListGroup>
 
                 </div>
             )}

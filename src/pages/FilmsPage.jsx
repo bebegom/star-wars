@@ -2,18 +2,20 @@ import {React, useEffect, useState} from 'react'
 import { ListGroup, ListGroupItem, Button} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import API from '../services/StarwarsAPI'
+import Pagination from '../components/PaginationBar'
 
 const FilmsPage = () => {
     const [films, setFilms] = useState('')
+    const [page, setPage] = useState(1)
 
-    const getFilmsFromAPI = async () => {
-        const data = await API.getFilms()
+    const getFilmsFromAPI = async (page) => {
+        const data = await API.getFilms(page)
         setFilms(data)
     }
 
     useEffect( ()=> {
-        getFilmsFromAPI()
-    }, [])
+        getFilmsFromAPI(page)
+    }, [page])
 
   return (
     <div>
@@ -35,6 +37,7 @@ const FilmsPage = () => {
               ))}
           </ListGroup>
       )}
+            <Pagination data={films} page={page} pageChange={setPage} />
     </div>
   )
 }

@@ -1,21 +1,18 @@
 import { React, useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import API from '../services/StarwarsAPI'
-// import axios from 'axios'
 //TODO: for looping over characters in the film
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
-// import { Link } from 'react-router-dom'
-
-// axios.defaults.baseURL = 'https://swapi.dev/api'
 
 const FilmPage = () => {
     const [film, setFilm] = useState('')
-
     const { id } = useParams()
+    const [people, setPeople] = useState('')
 
     const getFilm = async (id) => {
         const data = await API.getFilm(id)
         setFilm(data)
+        setPeople(data.characters)
     }
 
     useEffect( ()=> {
@@ -51,20 +48,20 @@ const FilmPage = () => {
                             <th>Release date</th>
                             <td>{film.release_date}</td>
                         </tr>
-                        <tr>
-                            <th>Characters</th>
-                            <td>{film.characters}</td>
-                        </tr>
 
                     </table>
 
                     <h2>Characters</h2>
 
-                    {/* <ListGroup>
-                        {film.characters.map(character => (
-                            <ListGroupItem>{character.name}</ListGroupItem>
+                    <ListGroup>
+                        {people.map( (person) => (
+                            <ListGroupItem as={Link}  
+                            to={`/people/${API.getIdFromUrl(person)}`}
+                            key={API.getIdFromUrl(person)} >
+                            Character {API.getIdFromUrl(person)}
+                            </ListGroupItem>
                         ))}
-                    </ListGroup> */}
+                    </ListGroup>
                 </div>
 
             )}

@@ -18,8 +18,8 @@ const getPerson = async (id) => {
 }
 
 // get films from SWAPI TODO: skapa en try-catch
-const getFilms = async () => {
-    const res = await axios.get('/films')
+const getFilms = async (page) => {
+    const res = await axios.get(`/films/?page=${page}`)
     return res.data
 }
 
