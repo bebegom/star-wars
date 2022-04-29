@@ -9,18 +9,11 @@ const PersonPage = () => {
     const [person, setPerson] = useState('')
     const { id } = useParams()
     const [films, setFilms] = useState('')
-    const [filmIds, setFilmIds] = useState('')
-    const arraryOfFilmIds = []
 
     const getPerson = async (id) => {
         const data = await API.getPerson(id)
         setPerson(data)
         setFilms(data.films)
-
-        films.map( async (url) => {
-            const filmId = await API.getIdFromUrl(url)
-            arraryOfFilmIds.push(filmId)
-        } )
     }
 
     useEffect( ()=> {
