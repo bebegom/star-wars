@@ -11,8 +11,6 @@ const PeoplePage = () => {
     const [error, setError] = useState('')
   
     const getPeopleFromAPI = async (page) => {
-        // const data = await API.getPeople(page);
-        // setPeople(data);
         setLoading(true)
 
         try {

@@ -7,11 +7,20 @@ const FilmPage = () => {
     const [film, setFilm] = useState('')
     const { id } = useParams()
     const [people, setPeople] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
 
     const getFilm = async (id) => {
-        const data = await API.getFilm(id)
-        setFilm(data)
-        setPeople(data.characters)
+        setLoading(true)
+
+        try {
+            const data = await API.getFilm(id)
+            setFilm(data)
+            setPeople(data.characters)
+            setLoading(false)
+        } catch (err) {
+            setError(err.message)
+        }
     }
 
     useEffect( ()=> {
@@ -20,7 +29,9 @@ const FilmPage = () => {
 
     return (
         <div>
-            {!film && (
+            {error && {error}}
+
+            {loading && (
                 <p>wait for it...</p>
             )}
 

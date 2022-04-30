@@ -7,10 +7,19 @@ import Pagination from '../components/PaginationBar'
 const FilmsPage = () => {
     const [films, setFilms] = useState('')
     const [page, setPage] = useState(1)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
 
     const getFilmsFromAPI = async (page) => {
-        const data = await API.getFilms(page)
-        setFilms(data)
+        setLoading(true)
+
+        try {
+            const data = await API.getFilms(page)
+            setFilms(data)
+            setLoading(false)
+        } catch (err) {
+            setError(err.message)
+        }
     }
 
     useEffect( ()=> {
@@ -20,8 +29,10 @@ const FilmsPage = () => {
     return (
         <div>
             <h1>Films</h1>
+
+            {error && {error}}
         
-            {!films && (
+            {loading && !films && (
                 <p>wait for it...</p>
             )}
 
