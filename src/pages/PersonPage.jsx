@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import API from '../services/StarwarsAPI'
-//TODO: for looping over films the character is in
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 
 const PersonPage = () => {
@@ -69,8 +68,8 @@ const PersonPage = () => {
                             <ListGroupItem as={Link}  
                             to={`/films/${API.getIdFromUrl(film)}`}
                             key={API.getIdFromUrl(film)} >
-                            Film {API.getIdFromUrl(film)}
-                        </ListGroupItem>
+                                Film {API.getIdFromUrl(film)}
+                            </ListGroupItem>
                         ))}
                     </ListGroup>
 

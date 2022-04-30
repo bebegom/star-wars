@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import API from '../services/StarwarsAPI'
-//TODO: for looping over characters in the film
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 
 const FilmPage = () => {

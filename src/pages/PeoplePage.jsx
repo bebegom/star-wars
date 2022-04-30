@@ -27,18 +27,18 @@ const PeoplePage = () => {
 
             {people && (
                 <ListGroup>
-                {people.results.map((person) => (
-                    <div className='d-flex m-1'>
-                    <ListGroupItem className='w-75'>{person.name}</ListGroupItem>
-                    <Link to={`/people/${API.getIdFromUrl(person.url)}`}>
-                        <Button className='right' variant='secondary'>details</Button>
-                    </Link>
-                  </div>
-                ))}
+                    {people.results.map((person) => (
+                        <div className='d-flex m-1'>
+                            <ListGroupItem className='w-75'>{person.name}</ListGroupItem>
+                            <Link to={`/people/${API.getIdFromUrl(person.url)}`}>
+                                <Button className='right' variant='secondary'>details</Button>
+                            </Link>
+                        </div>
+                    ))}
                 </ListGroup>
             )}
 
-                <PaginationBar data={people} page={page} pageChange={setPage} />
+            <PaginationBar data={people} page={page} pageChange={setPage} />
 
         </div>
     )
