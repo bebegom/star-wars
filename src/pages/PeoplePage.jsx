@@ -7,10 +7,21 @@ import PaginationBar from '../components/PaginationBar'
 const PeoplePage = () => {
     const [people, setPeople] = useState('');
     const [page, setPage] = useState(1)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
   
     const getPeopleFromAPI = async (page) => {
-        const data = await API.getPeople(page);
-        setPeople(data);
+        // const data = await API.getPeople(page);
+        // setPeople(data);
+        setLoading(true)
+
+        try {
+            const data = await API.getPeople(page);
+            setPeople(data);
+            setLoading(false)
+        } catch (err) {
+            setError(err.message)
+        }
     };
 
     useEffect(() => {
@@ -21,8 +32,10 @@ const PeoplePage = () => {
         <div>
             <h1>People</h1>
 
-            {!people && (
-                <p>wait for it...</p>
+            {error && {error}}
+
+            {loading && !people && (
+                <p>Wait for it...</p>
             )}
 
             {people && (
