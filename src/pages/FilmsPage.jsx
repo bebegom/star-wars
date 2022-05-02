@@ -8,7 +8,8 @@ const FilmsPage = () => {
     const [films, setFilms] = useState('')
     const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState('')
+    const [error, setError] = useState(null)
+    const [isError, setIsError] = useState(false)
 
     const getFilmsFromAPI = async (page) => {
         setLoading(true)
@@ -16,9 +17,13 @@ const FilmsPage = () => {
         try {
             const data = await API.getFilms(page)
             setFilms(data)
-            setLoading(false)
+            setIsError(false)
+            setError(null)
         } catch (err) {
+            setIsError(true)
             setError(err.message)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -30,7 +35,7 @@ const FilmsPage = () => {
         <div>
             <h1>Films</h1>
 
-            {error && {error}}
+            {isError && (<p><strong>ERROR!</strong> {error}</p>)}
         
             {loading && !films && (
                 <p>wait for it...</p>
@@ -51,7 +56,7 @@ const FilmsPage = () => {
 
             <Pagination data={films} page={page} pageChange={setPage} />
         </div>
-  )
+    )
 }
 
 export default FilmsPage

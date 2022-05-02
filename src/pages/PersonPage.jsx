@@ -8,7 +8,8 @@ const PersonPage = () => {
     const { id } = useParams()
     const [films, setFilms] = useState('')
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState('')
+    const [error, setError] = useState(null)
+    const [isError, setIsError] = useState(false)
 
     const getPerson = async (id) => {
         setLoading(true)
@@ -17,9 +18,13 @@ const PersonPage = () => {
             const data = await API.getPerson(id)
             setPerson(data)
             setFilms(data.films)
-            setLoading(false)
+            setIsError(false)
+            setError(null)
         } catch (err) {
+            setIsError(true)
             setError(err.message)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -29,7 +34,7 @@ const PersonPage = () => {
 
     return (
         <div>
-            {error && {error}}
+            {isError && (<p><strong>ERROR!</strong> {error}</p>)}
 
             {loading && (
                 <p>wait for it...</p>
@@ -83,7 +88,6 @@ const PersonPage = () => {
                             </ListGroupItem>
                         ))}
                     </ListGroup>
-
                 </div>
             )}
         </div>

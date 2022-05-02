@@ -8,7 +8,8 @@ const PeoplePage = () => {
     const [people, setPeople] = useState('');
     const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState('')
+    const [error, setError] = useState(null)
+    const [isError, setIsError] = useState(false)
   
     const getPeopleFromAPI = async (page) => {
         setLoading(true)
@@ -16,9 +17,13 @@ const PeoplePage = () => {
         try {
             const data = await API.getPeople(page);
             setPeople(data);
-            setLoading(false)
+            setIsError(false)
+            setError(null)
         } catch (err) {
+            setIsError(true)
             setError(err.message)
+        } finally {
+            setLoading(false)
         }
     };
 
@@ -30,7 +35,7 @@ const PeoplePage = () => {
         <div>
             <h1>People</h1>
 
-            {error && {error}}
+            {isError && (<p><strong>ERROR!</strong> {error}</p>)}
 
             {loading && !people && (
                 <p>Wait for it...</p>
@@ -50,7 +55,6 @@ const PeoplePage = () => {
             )}
 
             <PaginationBar data={people} page={page} pageChange={setPage} />
-
         </div>
     )
 }
